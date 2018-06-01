@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css">
+        <style>
+        body {
+            background: #f3f3f3;
+            margin: 0px;
+        }
+        #menubar .logobox {
+            margin: 0px;
+            padding: 2px;
+            height: 120px;
+            background: #7171FF;
+            border-radius: 5px 5px 0px 0px;
+            text-align: center;
+        }
+        #menubar .logobox img {
+            width: 100px;
+            position: relative;
+            top: 10px;
+        }
+        #menubar .option {
+            margin: auto;
+            padding: 16px;
+            border-bottom: 1px #b3b3b3 dashed;
+        }
+        .tag {  
+            background: #6BA8FF;
+            padding: 7px;
+            position: fixed;
+            z-index: 3;
+            top: 0px;
+            width: 100%;
+        }
+        .tag img {
+            width: 40px;
+            display: inline-block;
+        }
+        .tag p {
+            color: #fff;
+            display: inline-block;
+            margin: 0px;
+            position: relative;
+            bottom: 10px;
+            left: 10px;
+            font-size: 24px;
+            font-family: monospace;
+            font-weight: bold;
+        }
+        .tag .menu {
+            border-radius: 5px;
+            background: #99C3FF;
+            border: 1px aliceblue dashed;
+            position: relative;
+            right: 14px;
+            float: right;
+            width: 40px;
+            height: 40px;
+        }
+        .tag .menu .menuicon {
+            position: relative;
+            top: 2px;
+        }
+        .tag .menu .menuicon div {
+            width: 28px;
+            border: 2.5px white solid;
+            border-radius: 2px;
+            margin: 6px 4px;
+        }
+        .main {
+            position: relative;
+            top: 50px;
+        }
+        .post {
+            margin-top: 20px;
+            padding: 6px;
+            background: #fff;
+            border: 1px #9CCDF9 solid;
+            border-radius: 5px;
+        }
+        .post .head {
+            font-size: 20px;
+            margin: 12px;
+        }
+        .post .hr {
+            text-align: center;
+            border-bottom: 1px #9ccdf9 dashed;
+            width: 98%;
+            margin-bottom: 8px;
+        }
+        .post .attach {
+            widows: 97%;
+            height: 150px;
+            background: #e3e3e3;
+        }
+        .post .time {
+            color: #737373
+        }
+        .post .details {
+            text-align: justify;
+            padding: 3px;
+        }
+        .post .postedby {
+            color: #737373;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+        .add {
+            position: fixed;
+            float: right;
+            right: 20px;
+            top: 88%;
+            border-radius: 50%;
+            background: blue;
+            font-size: 24px;
+            text-align: center;
+            font-weight: bolder;
+            color: white;
+            padding: 0px;
+            height: 50px;
+            width: 50px;
+        }
+        .add p {
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+        </style>
+        <title>Disaster Informer</title>
+    </head>
+    <body>
+        <div data-role='page' class="app">
+            <div data-role='panel' id='menubar' data-theme="a">
+                <div class='logobox'>
+                    <img src="icon.png">
+                </div>
+                <p class='option'>Change User Information</p>
+                <p class='option'>User's Posts</p>
+            </div>
+            <div class='tag ui-content'>
+                <img src="icon.png">
+                <p>DisInfo</p>
+                <div class='menu'>
+                    <a class='menuicon' href="#menubar"><div></div><div></div><div></div></a>
+                </div>
+            </div>
+            <div data-role='main' class='main ui-content'>
+                <div class='post'>
+                    <p class='head'>EarthQuick In Dhaka, Bangladesh</p>
+                    <div class='hr'></div>
+                    <div class='attach'></div>
+                    <p class="time">Time: 8:22 PM 4 May 2016</p>
+                    <div class='details'>There happen a Earthquck in Dhaka, Bangladesh. Its attack power 7.0 hrikterscale. This is the strongest earthquick in Bangladesh. But the good news is none has died isted of carefully handler..</div>
+                    <p class='postedby'>Posted By Sudip A. Shourja</p>
+                </div>
+                <div class='post'>
+                    <p class='head'>EarthQuick In Dhaka, Bangladesh</p>
+                    <div class='hr'></div>
+                    <div class='attach'></div>
+                    <p class="time">Time: 8:22 PM 4 May 2016</p>
+                    <div class='details'>There happen a Earthquck in Dhaka, Bangladesh. Its attack power 7.0 hrikterscale. This is the strongest earthquick in Bangladesh. But the good news is none has died isted of carefully handler..</div>
+                    <p class='postedby'>Posted By Sudip A. Shourja</p>
+                </div>
+            </div>
+            <div class='add ui-content' onclick="window.location = 'post.html';"><p>+</p></div>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src='js/jquery-1.10.2.min.js'></script>
+        <script type="text/javascript" src='js/jquery.mobile-1.4.5.min.js'></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+</body>
+
+</html>

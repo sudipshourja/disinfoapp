@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css">
+        <style>
+        body {
+            background: #f3f3f3;
+            margin: 0px;
+        }
+        .tag {  
+            background: #6BA8FF;
+            padding: 7px;
+            position: fixed;
+            top: 0px;
+            width: 100%;
+            height: 46px;
+        }
+        .tag .head, .tag .backbutton {
+            color: #fff;
+            display: inline-block;
+            font-size: 22.5px;
+            font-family: monospace;
+        }
+        .tag .backbutton {
+            float: left;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            font-weight: bolder;
+            font-size: 30px;
+            background:  #6BA8FF;
+            padding: 10.5px;
+        }
+        .tag .backbutton:hover {
+            background: #BAD6FF;
+        }
+        .tag .head {
+            float: right;
+            position: relative;
+            top: 10px;
+            right: 15px;
+        }
+        #upload .option {
+            margin: auto;
+            padding: 16px;
+            border-bottom: 1px #b3b3b3 dashed;
+        }
+        #smallImage {
+            display: none;
+        }
+        #largeImage {
+            display: none;
+        }
+        .main {
+            position: relative;
+            top: 50px;
+            padding: 12px;
+        }
+        .main textarea {
+            height: 200px !important;
+            resize: none;
+        }
+        .main .location {
+            background: #fff;
+        }
+        .main .uploadButton {
+            width: 90%;
+        }
+        .main .post {
+            background: #6BA8FF;
+        }
+        </style>
+        <title>Disaster Informer</title>
+    </head>
+    <body>
+        <div data-role='page' class="app">
+            <div data-role='panel' id='upload'>
+                <h2>Upload an Image</h2>
+                <button onclick="capturePhoto();">Capture Photo</button>
+                <button onclick="capturePhotoEdit();">Capture Editable Photo</button>
+                <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button>
+                <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button>
+            </div>
+            <div class='tag ui-content'>
+                <div class='backbutton'><</div>
+                <div class='head'>Post about a new disaster</div>
+            </div>
+            <div data-role='main' class='main ui-content'>
+                <p>What Happend? <a href="http://www.ifrc.org/en/what-we-do/disaster-management/about-disasters/definition-of-hazard">More Help..</a></p>
+                <select class='postfield' data-theme='a'>
+                    <option>Earthquakes</option>
+                    <option>Landslides</option>
+                    <option>Tsunamis</option>
+                    <option>Volcanic Activity</option>
+                    <option>Avalanches</option>
+                    <option>Floods</option>
+                    <option>Extreme Temperatures</option>
+                    <option>Drought</option>
+                    <option>Wildfires</option>
+                    <option>Man-Made Disaster</option>
+                </select>
+                <button type="button" class="postfield location">Loction</button>
+                <textarea class='postfield' placeholder="Details"></textarea>
+                <div class='imageholder'>
+                    <img id='smallImage' src="">
+                    <img id='largeImage' src="">
+                </div>
+                <a href="#upload" class="ui-btn ui-btn-b ui-btn-inline ui-corner-all ui-shadow uploadButton">Uplad Photo</a>
+                <button type='submit' class="post">Post</button>
+            </div>
+        </div>
+        <script type="text/javascript" src='js/jquery-1.10.2.min.js'></script>
+        <script type="text/javascript" src='js/jquery.mobile-1.4.5.min.js'></script>
+        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            var pictureSource;   // picture source
+            var destinationType; // sets the format of returned value
+
+            // Wait for device API libraries to load
+            document.addEventListener("deviceready",onDeviceReady,false);
+
+            // device APIs are available
+            function onDeviceReady() {
+                pictureSource = navigator.camera.PictureSourceType;
+                destinationType = navigator.camera.DestinationType;
+            }
+
+            // Called when a photo is successfully retrieved
+            function onPhotoDataSuccess(imageData) {
+            // Uncomment to view the base64-encoded image data
+            // console.log(imageData);
+
+            // Get image handle
+            var smallImage = document.getElementById('smallImage');
+
+            // Show the captured photo
+            // The in-line CSS rules are used to resize the image
+            smallImage.src = "data:image/jpeg;base64," + imageData;
+        }
+
+        // Called when a photo is successfully retrieved
+        function onPhotoURISuccess(imageURI) {
+            // Uncomment to view the image file URI
+            // console.log(imageURI);
+
+            // Get image handle
+            var largeImage = document.getElementById('largeImage');
+
+            // Unhide image elements
+            largeImage.style.display = 'block';
+
+            // Show the captured photo
+            // The in-line CSS rules are used to resize the image
+            largeImage.src = imageURI;
+        }
+
+        // A button will call this function
+        function capturePhoto() {
+            // Take picture using device camera and retrieve image as base64-encoded string
+            navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+            destinationType: destinationType.DATA_URL });
+        }
+
+        // A button will call this function
+        function capturePhotoEdit() {
+            // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
+            navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,        destinationType: destinationType.DATA_URL });
+        }
+
+        // A button will call this function
+        function getPhoto(source) {
+            // Retrieve image file location from specified source
+            navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, destinationType: destinationType.FILE_URI, sourceType: source });
+        }
+
+        // Called if something bad happens.
+        function onFail(message) {
+          alert('Failed because: ' + message);
+        }
+    </script>
+</body>
+</html>
